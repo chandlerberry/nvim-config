@@ -1,2 +1,2 @@
-require("chndlr.lazy")
 require("chndlr.set")
+require("chndlr.lazy")

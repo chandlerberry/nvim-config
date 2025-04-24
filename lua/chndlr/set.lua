@@ -25,6 +25,3 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-
-
-
