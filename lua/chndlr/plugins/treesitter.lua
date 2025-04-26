@@ -2,7 +2,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function () 
+    config = function ()
 	  local config = require("nvim-treesitter.configs")
 		config.setup({
       ensure_installed = {
@@ -20,7 +20,13 @@ return {
         "nginx",
         "lua",
         "toml",
+        "json",
+        "jq",
+        "html",
+        "terraform",
+        "caddy",
       },
+      auto_install=true,
 		  sync_install = false,
       highlight = { enable = true },
       indent = { enable = true },
