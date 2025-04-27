@@ -35,6 +35,7 @@ return {
 				"dockerls",
 			})
 
+      -- view configuration options with `:h vim.diagnostic.opts`
       vim.diagnostic.config({
         virtual_text=true,
       })
