@@ -1,12 +1,14 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		lazy = false,
 		config = function()
 			require("mason").setup()
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
+		lazy = false,
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -21,6 +23,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		lazy = false,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -31,6 +34,10 @@ return {
 				"docker_compose_language_service",
 				"dockerls",
 			})
+
+      vim.diagnostic.config({
+        virtual_text=true,
+      })
 
 			vim.lsp.config("*", {
 				capabilities = capabilities,
@@ -50,7 +57,8 @@ return {
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 		end,
 	},
 }
