@@ -17,6 +17,7 @@ return {
 					"pyright",
 					"docker_compose_language_service",
 					"dockerls",
+					"gopls",
 				},
 			})
 		end,
@@ -33,12 +34,13 @@ return {
 				"pyright",
 				"docker_compose_language_service",
 				"dockerls",
+				"gopls",
 			})
 
-      -- view configuration options with `:h vim.diagnostic.opts`
-      vim.diagnostic.config({
-        virtual_text=true,
-      })
+			-- view configuration options with `:h vim.diagnostic.opts`
+			vim.diagnostic.config({
+				virtual_text = true,
+			})
 
 			vim.lsp.config("*", {
 				capabilities = capabilities,
@@ -59,7 +61,37 @@ return {
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {},
+		config = function()
+			require("conform").setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					python = { "ruff_organize_imports", "ruff_format", "ruff_fix" },
+					go = { "goimports", "gofmt" },
+					javascript = { "prettierd", "prettier", stop_after_first = true },
+				},
+				format_on_save = {
+					-- These options will be passed to conform.format()
+					timeout_ms = 500,
+					lsp_format = "fallback",
+				},
+				default_format_opts = {
+					lsp_format = "fallback",
+				},
+			})
+			vim.keymap.set("n", "<leader>gf", require("conform").format, {})
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		-- use opts = {} for passing setup options
+		-- this is equivalent to setup({}) function
 	},
 }
