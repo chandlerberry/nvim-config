@@ -46,6 +46,14 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("ruff", {
+				init_options = {
+					settings = {
+						configurationPreference = "filesystemFirst",
+					},
+				},
+			})
+
 			vim.lsp.config("dockerls", {
 				settings = {
 					docker = {
