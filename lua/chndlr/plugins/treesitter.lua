@@ -31,9 +31,11 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",
       callback = function()
-        -- auto-install parser for unrecognized filetypes (replaces auto_install)
-        pcall(ts.install, { vim.bo.filetype })
-        -- enable highlighting and indentation if a parser is available
+        local ft = vim.bo.filetype
+        local parser_configs = require("nvim-treesitter.parsers")
+        if parser_configs[ft] then
+          pcall(ts.install, { ft })
+        end
         if pcall(vim.treesitter.start) then
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
